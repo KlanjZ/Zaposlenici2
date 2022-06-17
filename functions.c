@@ -86,7 +86,7 @@ char * sifra(void) {
                 pozicija++;
                 printf("*");
             } else {
-                printf("\nPreskocili ste maksimalan broj karaktera sifre koji iznosi:%d.", max);
+                printf("\nPreskocili ste maksimalan broj karaktera sifre koji iznosi %d.", max);
                 break;
             }
         }
@@ -206,11 +206,13 @@ void login(int k) {
         char * sifra1;
         int oslobodenje=0;
         if (provj == 1) {
-            printf("Korisnicko ime nadeno, upisite sifru, ");
+            printf("Korisnicko ime nadeno, upisite sifru: ");
             getchar();
             do {
                 pokusaj++;
-                printf("imate jos %d pokusaj/a: ", 5 - pokusaj);
+                if(pokusaj>1){
+                printf("Sifra netocna, imate jos %d pokusaj/a: ", 5 - pokusaj);
+                }
                 sifra1 = sifra();
                 if (strcmp(sifra1, (zaposlenici + i) -> sifra) == 0) {
                     oslobodenje=1;
