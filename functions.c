@@ -388,7 +388,7 @@ void sortirajPlacaVeca(int z) {
 
     fclose(fp);
 
-zaposlenici=sortVeca(z, zaposlenici);
+    zaposlenici=sortVeca(z, zaposlenici);
 
          printf("\n---------------------------------------------------------------------------------------------\n");
          printf("ID\t\tIme\t\tPrezime\t\t\tPlaca");
@@ -439,7 +439,7 @@ void sortirajPlacaManja(int z) {
 
     fclose(fp);
 
-zaposlenici=sortManja(z, zaposlenici);
+    zaposlenici=sortManja(z, zaposlenici);
 
          printf("\n---------------------------------------------------------------------------------------------\n");
          printf("ID\t\tIme\t\tPrezime\t\t\tPlaca");
