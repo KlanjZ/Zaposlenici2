@@ -1,7 +1,6 @@
 #include "header.h"
 
 
-
 void kreirajZaposlenika(void) {
 
     FILE * fp = NULL;
@@ -78,7 +77,14 @@ char * sifra(void) {
         ch = getch();
         if (ch == 10) {
             break;
-        } else if (ch == 32 || ch == 9 || ch == 8) {
+        }else if(ch == 8){ //koristi se ctrl+h jer ne prepoznaje backspace
+            if(pozicija>0){
+                pozicija--;
+                Sifra[pozicija]='\0';
+                printf("\b \b");
+            }
+        }
+        else if (ch == 32 || ch == 9) {
             continue;
         } else {
             if (pozicija < max) {
@@ -94,7 +100,9 @@ char * sifra(void) {
     Sifra[pozicija] = '\0';
     printf("\n");
     if (strlen(Sifra) == 0) {
-        printf("\nNije unesena sifra.\n ");
+        printf("Nije unesena sifra, pokusajte ponovo:");
+        free(Sifra);
+        Sifra=sifra();
     } else if (strlen(Sifra) < 6) {
         printf("Sifra mora biti barem 6 karaktera, pokusajte ponovo: ");
         free(Sifra);
