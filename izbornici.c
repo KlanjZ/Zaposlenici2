@@ -96,15 +96,16 @@ int izbornikZaposlenik(int z){
 	printf("*\t\t\t    Opcija 1: Promjena sifre.        \t\t\t            *\n");
 	printf("*\t\t\t    Opcija 2: Upisite biljeske.      \t\t\t            *\n");
 	printf("*\t\t\t    Opcija 3: Ispisite vase biljeske. \t\t\t            *\n");
-	printf("*\t\t\t    Opcija 4: Povratak na izbornik.  \t\t\t            *\n");
-    printf("*\t\t\t    Upisite opciju 1-4: ");
+	printf("*\t\t\t    Opcija 4: Ispis vasih podataka.  \t\t\t            *\n");
+	printf("*\t\t\t    Opcija 5: Povratak na izbornik  \t\t\t            *\n");
+    printf("*\t\t\t    Upisite opciju 1-5: ");
 	free(zaposlenik);
 	
 	do{
 		 scanf("%d", &uvijet);
-		if(uvijet<=0 || uvijet >4)
+		if(uvijet<=0 || uvijet >5)
 		    printf("Broj izvan ogranicenja, pokusajte ponovo: ");
-		}while(uvijet<=0 || uvijet >4);   
+		}while(uvijet<=0 || uvijet >5);   
 	int k;
 		switch (uvijet) {
     
@@ -120,6 +121,9 @@ int izbornikZaposlenik(int z){
      	citajBiljesku(zaposlenik->ime);
 		break;
 	case 4:
+	    korisnikPodatci(z);
+     	break;
+	case 5:
 	uvijet=0;
 	    break;
 	default:
