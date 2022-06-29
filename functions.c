@@ -4,15 +4,15 @@
 void kreirajZaposlenika(void) {
 
     FILE * fp = NULL;
+    fp = fopen("datoteka.bin", "ab");
+    if (fp == NULL) {
+        perror("datoteka");
+        exit(EXIT_FAILURE);
+    }
     ZAPOSLENIK * zap = NULL;
     zap = (ZAPOSLENIK * ) calloc(1, sizeof(ZAPOSLENIK));
     if (zap == NULL) {
         perror("zauzimanje memorije");
-        exit(EXIT_FAILURE);
-    }
-    fp = fopen("datoteka.bin", "ab");
-    if (fp == NULL) {
-        perror("datoteka");
         exit(EXIT_FAILURE);
     }
     int provjeraKor;
@@ -75,16 +75,16 @@ char * sifra(void) {
     int pozicija = 0;
     while (1) {
         ch = getch();
-        if (ch == 10) {
+        if (ch == 10) {  //enter
             break;
-        }else if(ch == 8){ //koristi se ctrl+h jer ne prepoznaje backspace
+        }else if(ch == 27){ //koristi se Esc jer ne prepoznaje backspace ovaj compiler
             if(pozicija>0){
                 pozicija--;
                 Sifra[pozicija]='\0';
                 printf("\b \b");
             }
         }
-        else if (ch == 32 || ch == 9) {
+        else if (ch == 32 || ch == 9) { //space i tab
             continue;
         } else {
             if (pozicija < max) {
@@ -131,12 +131,70 @@ int getch(void) {
 
 
 
+int provjeraKorisnika(int k, char *korisnik){
+             FILE * fp = NULL;
+    if (k == 0||(fp=fopen("datoteka.bin","rb"))==NULL) {
+        return 0;
+    } else {
+
+        ZAPOSLENIK * zaposlenici = NULL;
+        zaposlenici = (ZAPOSLENIK * ) calloc(k, sizeof(ZAPOSLENIK));
+        if (zaposlenici == NULL) {
+            perror("zauzimanje memorije");
+            exit(EXIT_FAILURE);
+        }
+        int provjera=0;
+        fread(zaposlenici, sizeof(ZAPOSLENIK), k,fp);
+        for (int i = 0; i < k; i++) {
+
+            if ((strcmp(korisnik, (zaposlenici + i) -> korisnickoIme)) == 0) {
+                provjera = 1;
+                break;
+            }
+                
+            }
+            fclose(fp);
+            free(zaposlenici);
+            return provjera;
+        }
+    
+}
+
+
+
+int provjeraID(int k, int ID){
+             FILE * fp = NULL;
+    if (k == 0||(fp=fopen("datoteka.bin","rb"))==NULL) {
+        return 0;
+    } else {
+
+        ZAPOSLENIK * zaposlenici = NULL;
+        zaposlenici = (ZAPOSLENIK * ) calloc(k, sizeof(ZAPOSLENIK));
+        if (zaposlenici == NULL) {
+            perror("zauzimanje memorije");
+            exit(EXIT_FAILURE);
+        }
+        int provjera=0;
+        fread(zaposlenici, sizeof(ZAPOSLENIK), k,fp);
+        for (int i = 0; i < k; i++) {
+            if (ID==(zaposlenici+i)->ID) {
+                provjera = 1;
+                break;
+            }
+            }
+            fclose(fp);
+            free(zaposlenici);
+            return provjera;
+        }
+}
+
+
+
 
 int brojZap(void) {
 
     FILE * fp = NULL;
     if((fp=fopen("datoteka.bin","rb"))==NULL){
-            
     }else{
     int i=0;
     ZAPOSLENIK zap;
@@ -296,9 +354,7 @@ void stvoriBiljesku(char *ime){
         putc(p, fp);
     }
     fprintf(fp, "\n");
-    
     fclose(fp);
-    
 }
 
 
@@ -314,13 +370,9 @@ void citajBiljesku(char *ime){
 	while ((p = getc(fp)) != EOF) {
 		printf("%c", p);
 	}
-    
     fclose(fp);
     }
 }
-
-
-
 
 
 
@@ -576,63 +628,4 @@ void trazenjeID(int k){
       free(zaposlenici);
         
     }
-}
-
-
-
-
-int provjeraKorisnika(int k, char *korisnik){
-             FILE * fp = NULL;
-    if (k == 0||(fp=fopen("datoteka.bin","rb"))==NULL) {
-    } else {
-
-        ZAPOSLENIK * zaposlenici = NULL;
-        zaposlenici = (ZAPOSLENIK * ) calloc(k, sizeof(ZAPOSLENIK));
-        if (zaposlenici == NULL) {
-            perror("zauzimanje memorije");
-            exit(EXIT_FAILURE);
-        }
-        int provjera=0;
-        fread(zaposlenici, sizeof(ZAPOSLENIK), k,fp);
-        for (int i = 0; i < k; i++) {
-
-            if ((strcmp(korisnik, (zaposlenici + i) -> korisnickoIme)) == 0) {
-                provjera = 1;
-                break;
-            }
-                
-            }
-            fclose(fp);
-            free(zaposlenici);
-            return provjera;
-        }
-    
-}
-
-
-
-
-int provjeraID(int k, int ID){
-             FILE * fp = NULL;
-    if (k == 0||(fp=fopen("datoteka.bin","rb"))==NULL) {
-    } else {
-
-        ZAPOSLENIK * zaposlenici = NULL;
-        zaposlenici = (ZAPOSLENIK * ) calloc(k, sizeof(ZAPOSLENIK));
-        if (zaposlenici == NULL) {
-            perror("zauzimanje memorije");
-            exit(EXIT_FAILURE);
-        }
-        int provjera=0;
-        fread(zaposlenici, sizeof(ZAPOSLENIK), k,fp);
-        for (int i = 0; i < k; i++) {
-            if (ID==(zaposlenici+i)->ID) {
-                provjera = 1;
-                break;
-            }
-            }
-            fclose(fp);
-            free(zaposlenici);
-            return provjera;
-        }
 }
