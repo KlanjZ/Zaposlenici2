@@ -629,3 +629,32 @@ void trazenjeID(int k){
         
     }
 }
+
+
+
+
+void korisnikPodatci(int k){
+    FILE * fp = NULL;
+    fp = fopen("datoteka.bin", "rb");
+    if (fp == NULL) {
+        perror("greska u otvaranju");
+        exit(EXIT_FAILURE);
+    }
+    ZAPOSLENIK * zaposlenik = NULL;
+    zaposlenik = (ZAPOSLENIK * ) calloc(1, sizeof(ZAPOSLENIK));
+    if (zaposlenik == NULL) {
+        perror("zauzimanje memorije");
+        exit(EXIT_FAILURE);
+     }
+    for(int i=0; i<k+1; i++){
+        fread(zaposlenik, sizeof(ZAPOSLENIK), 1,fp);
+}
+        fclose(fp);
+        printf("\nVasi podatci:\n");
+        printf("\nIme:%s\nPrezime:%s\nID:%d\nPlaca:%.2f\n", zaposlenik->ime, zaposlenik->prezime, zaposlenik->ID, zaposlenik->placa);
+
+
+      free(zaposlenik);
+        
+    }
+
