@@ -26,6 +26,7 @@ void ispisZap(int z);
 void login(int k);
 int izbornikZaposlenik(int z);
 void promjenaSifre(int s, int z);
+void korisnikPodatci(int k);
 void obirisiZaposlenika(int z);
 int sortiraj(int z);
 void sortirajPlacaVeca(int z);
